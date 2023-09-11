@@ -596,6 +596,7 @@ class SyncplayClient(object):
 
     def isURITrusted(self, URIToTest):
         trustable, trusted = self._isURITrustableAndTrusted(URIToTest)
+        return True
         return trustable and trusted
 
     def openFile(self, filePath, resetPosition=False, fromUser=False):
@@ -2126,6 +2127,9 @@ class FileSwitchManager(object):
         self.filenameWatchlist = []
         self.currentDirectory = None
         self.mediaDirectories = client.getConfig().get('mediaSearchDirectories')
+        import os
+        self.mediaDirectories.append(os.getcwd())
+        # self.mediaDirectories = None
         self.lock = threading.Lock()
         self.folderSearchEnabled = True
         self.directorySearchError = None
